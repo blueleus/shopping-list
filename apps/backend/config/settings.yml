@@ -5,10 +5,11 @@ prod:
   .settings:
     no_script_name:         true
     logging_enabled:        false
-
+# for default, error_reporting: ... (E_ALL | E_STRICT) ... Added line 
+# "^ E_DEPRECATED" for delete the deprecated message.
 dev:
   .settings:
-    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    error_reporting:        <?php echo (E_ALL | E_STRICT) ^ E_DEPRECATED."\n" ?>
     web_debug:              true
     cache:                  false
     no_script_name:         false

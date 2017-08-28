@@ -1,0 +1,32 @@
+ShoppingList:
+  tableName: shopping_lists
+  actAs: { Timestampable: ~ }
+  columns:
+    id: {type: integer, primary: true, autoincrement: true }
+    name: { type: string(255), notnull: true }
+    total: { type: integer, notnull: true, default: 0 }
+
+Article:
+  tableName: articles
+  actAs: { Timestampable: ~ }
+  columns:
+    id: {type: integer, primary: true, autoincrement: true }
+    name: { type: string(255), notnull: true }
+    trademark: { type: string(255), notnull: true }
+    precio: { type: integer, notnull: true, default: 0 }
+    description: { type: string(255) }
+    is_active: { type: boolean, notnull: true, default: 0 }
+  relations:
+    ShoppingList:
+      class: ShoppingList
+      refClass: ShoppingListAnticle
+      local: id
+      foreign: shopping_list_id
+
+ShoppingListAnticle:
+  columns:
+    shopping_list_id: { type: integer, primary: true }
+    article_id: { type: integer, primary: true }
+  relations:
+    ShoppingList: { onDelete: CASCADE, local: shopping_list_id, foreign: id }
+    Article: { onDelete: CASCADE, local: article_id, foreign: id }
